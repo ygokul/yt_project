@@ -17,8 +17,8 @@
             align-items: center;
             color: #ffffff;
             position: relative;
-            /* Required for the pseudo-element */
-            /* overflow: hidden; */
+            min-height: 100vh;
+            /* Ensures the body covers the full viewport height */
         }
 
         body::before {
@@ -33,6 +33,8 @@
             /* Adjust blur intensity as needed */
             z-index: -1;
             /* Ensures it stays in the background */
+            background-attachment: fixed;
+            /* Optional: Makes the background fixed while scrolling */
         }
 
         .container {
@@ -141,6 +143,7 @@
             overflow: hidden;
             /* Ensures the animation stays within the button */
         }
+
         button span {
             position: relative;
             z-index: 1;
@@ -183,6 +186,14 @@
             transition: background-color 0.3s ease;
         }
 
+        button.small-button {
+            padding: 0.3rem 0.6rem;
+            font-size: 0.85rem;
+            width: 30%;
+            /* smaller width */
+        }
+
+
         .download-link:hover {
             background-color: #27ae60;
         }
@@ -218,7 +229,9 @@
             Your browser does not support the audio element.
         </audio>
         <br>
-        <a style="color: white;" href="{{ url_for('download', filename=audio_file) }}" download>Download Audio</a>
+        <form method="GET" action="{{ url_for('static', filename='translated_audio.mp3') }}">
+            <button type="submit" class="small-button"><span>Download Audio</span></button>
+        </form>
         {% endif %}
     </div>
 </body>
